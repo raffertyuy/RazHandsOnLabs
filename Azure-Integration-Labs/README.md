@@ -4,8 +4,7 @@
 1. Active Azure Subscription (get one [here](https://azure.microsoft.com/en-us/free/)).
 2. \[Part 1\] A OneDrive account (M365 or personal)
 3. \[Part 1\] An OpenAI account (either [Azure OpenAI](https://azure.microsoft.com/en-us/products/cognitive-services/openai-service) or directly from [OpenAI](https://platform.openai.com/signup))
-4. \[Part 1, Optional\] [A SendGrid account](https://sendgrid.com/free/)
-5. \[Part 2\] An [Azure API Management](https://learn.microsoft.com/en-us/azure/api-management/get-started-create-service-instance). This is for Part 2, but this 30-120 mins to provision, so best start now.
+4. \[Part 2\] An [Azure API Management](https://learn.microsoft.com/en-us/azure/api-management/get-started-create-service-instance). This is for Part 2, but this 30-120 mins to provision, so best start now.
 
 > **FOR TRAINERS:** You may pre-create items 1, 3, 4 and 5 above to make the lab faster.
 > - Create lab user accounts, with access to an Azure Resource Group.
@@ -45,14 +44,16 @@
     {"message":"Hello"}
     ```
 6. It should look like this ![](screenshots/1-trigger.png)
-7. Add a step **Initialize Variable**, which is under **Variables** ![](screenshots\1-init-variable.png)
-8. Add a step and look for OneDrive (for personal accounts) or OneDrive for Business (for M365 accounts)
-9. Select the action **Get file content** ![](screenshots/1c-onedrive.png)
-10. Sign In with the OneDrive account you used in [1a](#1a-create-a-text-file-with-content-in-onedrive)
-11. In *File, browse for your text file ![](screenshots/1-onedrive-file.png)
-12. Add a step **Compose**, which is under **Data Operations**
-13. Add as input the OneDrive **File content** and the HTTP Request **message**. It should look like this ![](screenshots/1-compose-prompt.png)
-14. Add a step **HTTP** and enter the following:
+7. Don't forget to save.
+8. Add a step **Initialize Variable**, which is under **Variables** ![](screenshots\1-init-variable.png)
+9. Add a step and look for OneDrive (for personal accounts) or OneDrive for Business (for M365 accounts)
+10. Select the action **Get file content** ![](screenshots/1c-onedrive.png)
+11. Sign In with the OneDrive account you used in [1a](#1a-create-a-text-file-with-content-in-onedrive)
+12. In *File, browse for your text file ![](screenshots/1-onedrive-file.png)
+13. Add a step **Compose**, which is under **Data Operations**
+14. Add as input the OneDrive **File content** and the HTTP Request **message**. It should look like this ![](screenshots/1-compose-prompt.png)
+15. Don't forget to save.
+16. Add a step **HTTP** and enter the following:
     ```
     Method: POST
 
@@ -69,10 +70,10 @@
         "max_tokens": 1000
     }
     ```
-15. Here's an example: ![](screenshots/1-http-openai.png)
-16. Add a step **Parse JSON**, under **Data Operations**
-17. In the content, select the **Body** from the **HTTP** action
-18. In the Schema, copy-paste the following
+17. Here's an example: ![](screenshots/1-http-openai.png)
+18. Add a step **Parse JSON**, under **Data Operations**
+19. In the content, select the **Body** from the **HTTP** action
+20. In the Schema, copy-paste the following
     ```
     {
         "type": "object",
@@ -130,10 +131,11 @@
         }
     }
     ```
-19. Add a step **Append to string variable**, under **Variables**
-20. For the name, select _Response_
-20. For the value, select **text** from the **Parse JSON** action. This will automatically place this action in a For each loop. ![](screenshots/1-appendoutput.png)
-21. Finally, add a step **Response**, under **Request** with the following values
+21. Don't forget to save.
+22. Add a step **Append to string variable**, under **Variables**
+23. For the name, select _Response_
+24. For the value, select **text** from the **Parse JSON** action. This will automatically place this action in a For each loop. ![](screenshots/1-appendoutput.png)
+25. Finally, add a step **Response**, under **Request** with the following values
     ```
     Status Code: 200
 
@@ -143,12 +145,43 @@
     Body:
     {"response":"{response-variable}"}
     ```
+26. Save.
 
 **If your logic app looks like this, congratulations! You've completed Challenge 1.**
 ![logic-app-final](screenshots/1-final.png)
 
-### Part 2: Azure API Management
+**OPTIONAL: Modify the logic app and send an e-mail with the OpenAI response to yourself. You may create a free account [SendGrid](https://www.sendgrid.com) for this.**
+
+### Challenge 2: Azure API Management with Logic Apps
 > **IDEA:** Use APIM as an abstraction layer (gateway) between the API consumer and the Azure Logic App.
-> - Configure the API policies
-> - Test the API
-> - Explore the Developer Portal
+> - Add the Azure Logic App in API management
+> - Observe the generated policies, etc.
+> - Test the API and troubleshoot if needed.
+
+1. While still in your **Azure Logic App**, copy the **HTTP POST URL** HTTP trigger that was automatically generated (at the very top of your logic app) ![](screenshots/2-logicapp-url.png)
+2. Now go to the **Azure API Management** resource that was created in the [Pre-requisites](#pre-requisites)
+3. On the left, click **API**, and click **+ Add API**
+4. Click on **Create from Azure Resource** --> **Logic App**
+5. Browse for your logic app. And if you are sharing the API management with other lab participants, change the display name to something that says it's yours
+6. In the **API URL suffix**, enter your name abbreviation
+7. If it looks something like this, click **Create** ![](screenshots/2-addapi.png)
+8. A new API with a _manual-invoke_ operation should be created. Click on this operation and observe what is auto-generated in the various parts: _Frontend, Inbound processing, Backend, and Outbound processing_
+9. Click on the **Test** tab and change the message. _Ask something about yourself_ and then click **Send** ![](screenshots/2-testapi.png)
+10. If you encounter any issues, troubleshoot. _(TIP: The problem may either be in the logic app or API management. You may use [Postman](https://www.postman.com/) to test-call the logic app URL directly)_
+10. Scroll down and see the response. ![](screenshots/2-testapi-results.png)
+
+### Challenge 3: Explore Azure API Management - Developer Portal
+> **IDEA:** Learn about the _Developer Portal_. Discuss and explore the concept of _Products_ and _Subscriptions._
+1. Stay in the **Azure Portal** --> **API Management** resource
+2. Click on **Overview** (on the left), and then click on the **Developer portal URL** (on the right). This is the URL that you can send to your developers. ![](screenshots/2-devportal.png)
+3. Try creating an account, subscribing to a product, and testing through the portal.
+4. To modify the Developer Portal UI, go back to the **Azure Portal** and look for **Developer portal** --> **Portal overview**. Click the **Developer portal** button on top. This opens the portal in administrative/edit mode. ![](screenshots/2-devportal-admin.png)
+
+### Other Scenarios
+- Legacy system integration
+- FTP
+- Adobe PDF services
+- Zoom Integration
+- External/SaaS APIs
+- Output to Sharepoint
+- SQL Server
