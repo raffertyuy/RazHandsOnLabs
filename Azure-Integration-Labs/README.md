@@ -150,9 +150,8 @@
 **If your logic app looks like this, congratulations! You've completed Challenge 1.**
 ![logic-app-final](screenshots/1-final.png)
 
-#### 1c: (OPTIONAL) Send an E-mail
-Modify the logic app and send an e-mail with the OpenAI response to yourself.
-> **TIP:** This involves adding a step before the HTTP response, using [SendGrid](https://www.sendgrid.com).**
+#### 1c: (OPTIONAL) Send an E-mail or SMS Notification
+Modify the logic app and send an e-mail or sms to yourself, with the OpenAI response. You may use [SendGrid](https://www.sendgrid.com) or [Azure Communication Services](https://azure.microsoft.com/en-us/products/communication-services/).
 
 #### 1d: (OPTIONAL) Explore other Logic App Connectors
 - [FTP](https://learn.microsoft.com/en-us/azure/connectors/connectors-create-api-ftp?tabs=consumption) and [SFTP-SSH](https://learn.microsoft.com/en-us/azure/connectors/connectors-sftp-ssh?tabs=consumption) connectors
