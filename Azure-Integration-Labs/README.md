@@ -150,7 +150,18 @@
 **If your logic app looks like this, congratulations! You've completed Challenge 1.**
 ![logic-app-final](screenshots/1-final.png)
 
-**OPTIONAL: Modify the logic app and send an e-mail with the OpenAI response to yourself. You may create a free account [SendGrid](https://www.sendgrid.com) for this.**
+#### 1c: (OPTIONAL) Send an E-mail
+Modify the logic app and send an e-mail with the OpenAI response to yourself.
+> **TIP:** This involves adding a step before the HTTP response, using [SendGrid](https://www.sendgrid.com).**
+
+#### 1d: (OPTIONAL) Explore other Logic App Connectors
+- [FTP](https://learn.microsoft.com/en-us/azure/connectors/connectors-create-api-ftp?tabs=consumption) and [SFTP-SSH](https://learn.microsoft.com/en-us/azure/connectors/connectors-sftp-ssh?tabs=consumption) connectors
+- [SharePoint](https://learn.microsoft.com/en-us/connectors/sharepointonline/) connector
+- [SQL Server](https://learn.microsoft.com/en-us/connectors/sql/)
+- [Adobe PDF Services](https://learn.microsoft.com/en-us/connectors/adobepdftools/) connector
+- [Zoom Meetings](https://learn.microsoft.com/en-us/connectors/zoommeetingsip/)
+- See [full list here](https://learn.microsoft.com/en-us/connectors/connector-reference/connector-reference-logicapps-connectors)
+- Also read on the [on-premise gateway](https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-gateway-connection) to connect to any of the [supported on-premise data sources](https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-gateway-connection#supported-data-sources)
 
 ### Challenge 2: Azure API Management with Logic Apps
 > **IDEA:** Use APIM as an abstraction layer (gateway) between the API consumer and the Azure Logic App.
@@ -176,12 +187,3 @@
 2. Click on **Overview** (on the left), and then click on the **Developer portal URL** (on the right). This is the URL that you can send to your developers. ![](screenshots/2-devportal.png)
 3. Try creating an account, subscribing to a product, and testing through the portal.
 4. To modify the Developer Portal UI, go back to the **Azure Portal** and look for **Developer portal** --> **Portal overview**. Click the **Developer portal** button on top. This opens the portal in administrative/edit mode. ![](screenshots/2-devportal-admin.png)
-
-### Other Scenarios
-- Legacy system integration
-- FTP
-- Adobe PDF services
-- Zoom Integration
-- External/SaaS APIs
-- Output to Sharepoint
-- SQL Server
