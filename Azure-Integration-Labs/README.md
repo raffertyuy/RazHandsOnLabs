@@ -10,7 +10,6 @@
 > - Create lab user accounts, with access to an Azure Resource Group.
 > - Pre-provision an Azure API management in this resource group.
 > - Provide the OpenAI API URL and API key.
-> - Provide the SendGrid API URL and API key.
 
 ## Hands-on Lab
 
