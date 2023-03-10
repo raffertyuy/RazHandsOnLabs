@@ -36,23 +36,28 @@
     - Resource name: /<your-name-abbreviation/>-logicapp
     - Region: West US
     - Resource Group: Your assigned resource group (or create a new one)
-3. On the left, Click **Logic app designer**
-4. Select **"When a HTTP request is received"**
+    - Publish: Workflow
+    - Plan type: Consumption
+    - Zone Redundancy: Disabled
+3. Once created, **Go to resource**, this should lead you to the **Logic App Designer**
+4. Select the template **"When a HTTP request is received"**
 5. Click on **"Use sample payload to generate schema"** and enter the following
     ```
     {"message":"Hello"}
     ```
 6. It should look like this ![](screenshots/1-trigger.png)
 7. Don't forget to save.
-8. Add a step **Initialize Variable**, which is under **Variables** ![](screenshots\1-init-variable.png)
-9. Add a step and look for OneDrive (for personal accounts) or OneDrive for Business (for M365 accounts)
-10. Select the action **Get file content** ![](screenshots/1c-onedrive.png)
-11. Sign In with the OneDrive account you used in [1a](#1a-create-a-text-file-with-content-in-onedrive)
-12. In *File, browse for your text file ![](screenshots/1-onedrive-file.png)
-13. Add a step **Compose**, which is under **Data Operations**
-14. Add as input the OneDrive **File content** and the HTTP Request **message**. It should look like this ![](screenshots/1-compose-prompt.png)
-15. Don't forget to save.
-16. Add a step **HTTP** and enter the following:
+8. Add a step **Compose**, which is under **Data Operations**
+9. Add as input the HTTP Request **message**. It should look like this ![](screenshots\1-compose-message.png)
+10. Add a step **Initialize Variable**, which is under **Variables** ![](screenshots\1-init-variable.png)
+12. Add a step and look for OneDrive (for personal accounts) or OneDrive for Business (for M365 accounts)
+13. Select the action **Get file content** ![](screenshots/1c-onedrive.png)
+14. Sign In with the OneDrive account you used in [1a](#1a-create-a-text-file-with-content-in-onedrive)
+15. In *File, browse for your text file ![](screenshots/1-onedrive-file.png)
+16. Add a step **Compose**, which is under **Data Operations**
+17. Add as input the OneDrive **File content** and the **Output** from your compose message above. It should look like this ![](screenshots/1-compose-prompt.png)
+18. Don't forget to save.
+19. Add a step **HTTP** and enter the following:
     ```
     Method: POST
 
@@ -69,10 +74,10 @@
         "max_tokens": 1000
     }
     ```
-17. Here's an example: ![](screenshots/1-http-openai.png)
-18. Add a step **Parse JSON**, under **Data Operations**
-19. In the content, select the **Body** from the **HTTP** action
-20. In the Schema, copy-paste the following
+20. Here's an example: ![](screenshots/1-http-openai.png)
+21. Add a step **Parse JSON**, under **Data Operations**
+22. In the content, select the **Body** from the **HTTP** action
+23. In the Schema, copy-paste the following
     ```
     {
         "type": "object",
@@ -130,11 +135,11 @@
         }
     }
     ```
-21. Don't forget to save.
-22. Add a step **Append to string variable**, under **Variables**
-23. For the name, select _Response_
-24. For the value, select **text** from the **Parse JSON** action. This will automatically place this action in a For each loop. ![](screenshots/1-appendoutput.png)
-25. Finally, add a step **Response**, under **Request** with the following values
+24. Don't forget to save.
+25. Add a step **Append to string variable**, under **Variables**
+26. For the name, select _Response_
+27. For the value, select **text** from the **Parse JSON** action. This will automatically place this action in a For each loop. ![](screenshots/1-appendoutput.png)
+29. Finally, add a step **Response**, under **Request** with the following values
     ```
     Status Code: 200
 
@@ -144,10 +149,13 @@
     Body:
     {"response":"{response-variable}"}
     ```
-26. Save.
+29. Save.
 
 **If your logic app looks like this, congratulations! You've completed Challenge 1.**
 ![logic-app-final](screenshots/1-final.png)
+
+> **NOTE:** Testing this logic app will come in the next API management challenge.
+> But if you really want to test now, you may use Postman to try and do an HTTP POST call on the URL generated from your HTTP trigger (step 4 above).
 
 #### 1c: (OPTIONAL) Send an E-mail or SMS Notification
 Modify the logic app and send an e-mail or sms to yourself, with the OpenAI response. You may use [SendGrid](https://www.sendgrid.com) or [Azure Communication Services](https://azure.microsoft.com/en-us/products/communication-services/).
