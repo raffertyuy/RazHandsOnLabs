@@ -9,3 +9,4 @@ This repo contains hands-on labs, most of which can be completed in ~2 hours.
 ## Other Useful Links
 1. [**RazWorkshops**](https://github.com/raffertyuy/RazWorkshops): My collection of other workshop materials that are not hands-on in nature.
 2. [**GitHub Copilot Workshops**](https://github.com/copilot-workshops)
+3. [**Azure DevOps Labs**](https://azuredevopslabs.com/)
